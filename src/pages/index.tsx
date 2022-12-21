@@ -13,7 +13,7 @@ const Home = observer(() => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Super Smash Party</title>
+        <title>Super December Party</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Login />

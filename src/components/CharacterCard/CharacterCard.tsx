@@ -11,11 +11,12 @@ interface ICharacterCardProps {
 
 const CharacterCard: React.FC<ICharacterCardProps> = observer(({ character }) => {
   const {
-    store: { setAvatar, setCurrentStep },
+    store: { setAvatar, setCurrentStep, createUser, name, wish },
   } = useStores();
 
   const onClick = () => {
     setAvatar(character.portrait);
+    createUser({ name, wish, character: character.name, avatar: character.portrait, score: 0 });
     setCurrentStep(null);
   };
 
