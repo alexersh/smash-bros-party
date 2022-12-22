@@ -38,6 +38,8 @@ $tier_colors: (
       display: flex;
       align-items: center;
       justify-content: center;
+      min-width: fit-content;
+      font-weight: bold;
     }
 
     @each $name, $color in $tier_colors {

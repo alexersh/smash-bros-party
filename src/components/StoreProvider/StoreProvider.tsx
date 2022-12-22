@@ -1,5 +1,5 @@
 import { useContext, createContext, ReactNode } from 'react';
-import { makeAutoObservable, action } from 'mobx';
+import { makeAutoObservable, action, toJS, runInAction } from 'mobx';
 import { initializeApp } from 'firebase/app';
 import {
   Firestore,
@@ -11,6 +11,8 @@ import {
   doc,
   increment,
 } from 'firebase/firestore';
+import uniqid from 'uniqid';
+import { filterUsers } from '../../utilities/filterUsersByRange';
 
 type TCurrentStep = '1' | '2' | null;
 
@@ -27,7 +29,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-interface IUser {
+export interface IUser {
   name: string;
   wish: string;
   avatar: string;
@@ -48,15 +50,14 @@ export default class Store {
       handleNameChange: action,
       handleWishChange: action,
       setAvatar: action,
+      getUsers: action,
+      createUser: action,
+      increaseScore: action,
+      init: action,
     });
-    this.name = (typeof window !== 'undefined' && window.localStorage.getItem('name')) || '';
+    this.name = (typeof window !== 'undefined' && window.localStorage.getItem('character')) || '';
 
     this.init();
-  }
-
-  get isLoggedIn() {
-    return this.currentStep === null && this.name;
-    // return true;
   }
 
   setCurrentStep = (value: TCurrentStep) => {
@@ -75,12 +76,39 @@ export default class Store {
     this.avatar = value;
   };
 
+  get isLoggedIn() {
+    return this.currentStep === null && this.name;
+    // return true;
+  }
+
   get allWishes() {
     return this.users.map((user) => user.wish);
   }
 
-  get sortedUsers() {
-    return this.users.sort((a, b) => a.score - b.score);
+  get filteredUsers() {
+    const usersHigh = toJS(this.users)
+      .filter(filterUsers([100, 15]))
+      .sort((a, b) => a.score - b.score);
+    const usersPrehigh = toJS(this.users)
+      .filter(filterUsers([15, 10]))
+      .sort((a, b) => a.score - b.score);
+    const usersNormal = toJS(this.users)
+      .filter(filterUsers([10, 5]))
+      .sort((a, b) => a.score - b.score);
+    const usersPrenormal = toJS(this.users)
+      .filter(filterUsers([5, 3]))
+      .sort((a, b) => a.score - b.score);
+    const usersLow = toJS(this.users)
+      .filter(filterUsers([3, 0]))
+      .sort((a, b) => a.score - b.score);
+
+    return {
+      usersHigh,
+      usersPrehigh,
+      usersNormal,
+      usersPrenormal,
+      usersLow,
+    };
   }
 
   getUsers = async () => {
@@ -98,10 +126,14 @@ export default class Store {
   createUser = async (user: IUser) => {
     try {
       await setDoc(doc(this.db, 'users', uniqid()), user);
+      console.log('>>> New user sended!');
     } catch (e) {
       console.warn(e);
     }
-    this.users.push(user);
+    runInAction(() => {
+      this.users.push(user);
+      // typeof window !== 'undefined' && window.localStorage.setItem('character', user.character);
+    });
   };
 
   increaseScore = async (userId: IUser['character']) => {
@@ -111,6 +143,10 @@ export default class Store {
       });
     } catch (e) {
       console.warn(e);
+    }
+    const user = this.users.find((user) => user.character === userId);
+    if (user) {
+      user.score += 1;
     }
   };
 
@@ -144,6 +180,3 @@ export const useStores = () => {
   }
   return store;
 };
-function uniqid(): string {
-  throw new Error('Function not implemented.');
-}
