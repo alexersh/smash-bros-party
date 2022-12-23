@@ -111,3 +111,22 @@ $characters: (
   background-color: pink;
   border-radius: 50%;
 }
+
+.fanfares {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-image: url('https://media1.giphy.com/media/JtAfv4HtfRe6o8WUns/200w.webp?cid=ecf05e47939clrxolom72t4xhbbqg88scbpb8b6pcbizdvoz&rid=200w.webp&ct=g');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  font-size: 10rem;
+  color: gold;
+  z-index: 99999;
+}
