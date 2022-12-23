@@ -4,10 +4,11 @@ import { observer } from 'mobx-react';
 import styles from '../styles/Home.module.scss';
 import Table from '../components/Table/Table';
 import Head from 'next/head';
+import Marquee from 'react-fast-marquee';
 
 const Home = observer(() => {
   const {
-    store: { isLoggedIn },
+    store: { isLoggedIn, allWishes },
   } = useStores();
 
   return (
@@ -17,7 +18,14 @@ const Home = observer(() => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Login />
-      {isLoggedIn && <Table />}
+      {isLoggedIn && (
+        <>
+          <Marquee gradientWidth={0} className={styles.wishes}>
+            {allWishes.join('; ')}
+          </Marquee>
+          <Table />
+        </>
+      )}
     </div>
   );
 });

@@ -102,7 +102,7 @@ export const characters: TCharacter[] = [
   {
     portrait:
       'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484420/smash-characters/fighters/main_29_onla2w.webp',
-    name: 'Dr. Mario',
+    name: 'Dr Mario',
   },
   {
     portrait:
@@ -152,7 +152,7 @@ export const characters: TCharacter[] = [
   {
     portrait:
       'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484419/smash-characters/fighters/main_39_aovwuh.webp',
-    name: 'Mr. Game & Watch',
+    name: 'Mr Game and Watch',
   },
   {
     portrait:
@@ -227,7 +227,7 @@ export const characters: TCharacter[] = [
   {
     portrait:
       'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484429/smash-characters/fighters/main_54_havrtj.webp',
-    name: 'R.O.B.',
+    name: 'ROB',
   },
   {
     portrait:
@@ -257,7 +257,7 @@ export const characters: TCharacter[] = [
   {
     portrait:
       'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484431/smash-characters/fighters/main_60_hxigyl.webp',
-    name: 'Rosalina & Luma',
+    name: 'Rosalina and Luma',
   },
   {
     portrait:
@@ -292,7 +292,7 @@ export const characters: TCharacter[] = [
   {
     portrait:
       'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484433/smash-characters/fighters/main_68_xifh3u.webp',
-    name: 'Bowser Jr.',
+    name: 'Bowser Jr',
   },
   {
     portrait:
@@ -337,7 +337,7 @@ export const characters: TCharacter[] = [
   {
     portrait:
       'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484439/smash-characters/fighters/main_79_bb8ahr.webp',
-    name: 'King K. Rool',
+    name: 'King K Rool',
   },
   {
     portrait:
@@ -356,57 +356,7 @@ export const characters: TCharacter[] = [
   },
   {
     portrait:
-      'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484440/smash-characters/fighters/main3_sfox20.webp',
-    name: 'Joker',
-  },
-  {
-    portrait:
-      'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484422/smash-characters/fighters/main_2_swtyl9.webp',
-    name: 'Hero',
-  },
-  {
-    portrait:
-      'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484424/smash-characters/fighters/main_3_xwhnv7.webp',
-    name: 'Banjo & Kazooie',
-  },
-  {
-    portrait:
-      'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484425/smash-characters/fighters/main_4_q4pyu9.webp',
-    name: 'Terry',
-  },
-  {
-    portrait:
-      'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484429/smash-characters/fighters/main_5_dduvt9.webp',
-    name: 'Byleth',
-  },
-  {
-    portrait:
-      'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484433/smash-characters/fighters/main_6_fw4xmc.webp',
-    name: 'Min Min',
-  },
-  {
-    portrait:
-      'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484417/smash-characters/fighters/main_10_emihbx.webp',
-    name: 'Sora',
-  },
-  {
-    portrait:
-      'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484439/smash-characters/fighters/main_8_awlymp.webp',
-    name: 'Sephiroth',
-  },
-  {
-    portrait:
-      'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484439/smash-characters/fighters/main2_1_jishqt.webp',
-    name: 'Pyra/Mythra',
-  },
-  {
-    portrait:
       'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484436/smash-characters/fighters/main_75_hzearx.webp',
     name: 'Inkling',
-  },
-  {
-    portrait:
-      'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484434/smash-characters/fighters/main_7_qush6v.webp',
-    name: 'Steve',
   },
 ];

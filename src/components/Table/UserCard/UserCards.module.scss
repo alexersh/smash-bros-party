@@ -1,0 +1,108 @@
+$characters: (
+  'Mario': 'Mario',
+  'DonkeyKong': 'Donkey Kong',
+  'Link': 'Link',
+  'Samus': 'Samus',
+  'DarkSamus': 'Dark Samus',
+  'Yoshi': 'Yoshi',
+  'Kirby': 'Kirby',
+  'Fox': 'Fox',
+  'Pikachu': 'Pikachu',
+  'Luigi': 'Luigi',
+  'Ness': 'Ness',
+  'CaptainFalcon': 'Captain Falcon',
+  'Jigglypuff': 'Jigglypuff',
+  'Peach': 'Peach',
+  'Daisy': 'Daisy',
+  'Bowser': 'Bowser',
+  'IceClimbers': 'Ice Climbers',
+  'Sheik': 'Sheik',
+  'Zelda': 'Zelda',
+  'DrMario': 'Dr Mario',
+  'Pichu': 'Pichu',
+  'Falco': 'Falco',
+  'Marth': 'Marth',
+  'Lucina': 'Lucina',
+  'YoungLink': 'Young Link',
+  'Ganondorf': 'Ganondorf',
+  'Mewtwo': 'Mewtwo',
+  'Roy': 'Roy',
+  'Chrom': 'Chrom',
+  'MrGameandWatch': 'Mr Game and Watch',
+  'MetaKnight': 'Meta Knight',
+  'Pit': 'Pit',
+  'DarkPit': 'Dark Pit',
+  'ZeroSuitSamus': 'Zero Suit Samus',
+  'Wario': 'Wario',
+  'Snake': 'Snake',
+  'Ike': 'Ike',
+  'PokémonTrainer': 'Pokémon Trainer',
+  'DiddyKong': 'Diddy Kong',
+  'Lucas': 'Lucas',
+  'Sonic': 'Sonic',
+  'KingDedede': 'King Dedede',
+  'Olimar': 'Olimar',
+  'Lucario': 'Lucario',
+  'ROB': 'ROB',
+  'ToonLink': 'Toon Link',
+  'Wolf': 'Wolf',
+  'Villager': 'Villager',
+  'MegaMan': 'Mega Man',
+  'WiiFitTrainer': 'Wii Fit Trainer',
+  'RosalinaandLuma': 'Rosalina and Luma',
+  'LittleMac': 'Little Mac',
+  'Greninja': 'Greninja',
+  'Palutena': 'Palutena',
+  'Pac-Man': 'Pac-Man',
+  'Robin': 'Robin',
+  'Shulk': 'Shulk',
+  'BowserJr': 'Bowser Jr',
+  'DuckHunt': 'Duck Hunt',
+  'Ryu': 'Ryu',
+  'Ken': 'Ken',
+  'Cloud': 'Cloud',
+  'Bayonetta': 'Bayonetta',
+  'Ridley': 'Ridley',
+  'Simon': 'Simon',
+  'Richter': 'Richter',
+  'KingKRool': 'King K Rool',
+  'Isabelle': 'Isabelle',
+  'Incineroar': 'Incineroar',
+  'PiranhaPlant': 'Piranha Plant',
+  'Inkling': 'Inkling',
+);
+
+@each $char, $img in $characters {
+  .#{$char} {
+    background-image: url('../../../../public/smash_icons/#{$img}.png');
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+
+  .name {
+    width: 5rem;
+    overflow: hidden;
+  }
+}
+
+.user {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  width: 4rem;
+  height: 4rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 50%;
+}

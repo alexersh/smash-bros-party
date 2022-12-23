@@ -8,10 +8,10 @@ interface IUserCard {
 
 const UserCard: React.FC<IUserCard> = ({ user }) => {
   return (
-    <div className={styles.user}>
-      <span>{user.name}</span>
-      <div className={`${styles.icon} ${styles[user.character]}`} />
-      <span>{user.score}</span>
+    <div className={styles.container}>
+      <span className={styles.name}>{user.name}</span>
+      <div className={`${styles.user} ${styles[user.character.split(' ').join('')]}`}></div>
+      <span className={styles.score}>{user.score}</span>
     </div>
   );
 };

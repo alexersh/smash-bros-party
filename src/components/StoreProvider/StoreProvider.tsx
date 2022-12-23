@@ -13,6 +13,7 @@ import {
 } from 'firebase/firestore';
 import uniqid from 'uniqid';
 import { filterUsers } from '../../utilities/filterUsersByRange';
+import { TCharacter, characters } from '../../constants/characters';
 
 type TCurrentStep = '1' | '2' | null;
 
@@ -34,7 +35,7 @@ export interface IUser {
   wish: string;
   avatar: string;
   score: number;
-  character: string;
+  character: TCharacter['name'];
 }
 export default class Store {
   name: string = '';
@@ -43,6 +44,7 @@ export default class Store {
   avatar: string = '';
   db: Firestore = db;
   users: IUser[] = [];
+  allCharacters: TCharacter[] = characters;
 
   constructor() {
     makeAutoObservable(this, {
@@ -82,25 +84,31 @@ export default class Store {
   }
 
   get allWishes() {
-    return this.users.map((user) => user.wish);
+    return this.users.map((user) => `${user.name}: ${user.wish}`);
+  }
+
+  get filteredCharacters() {
+    return this.allCharacters.filter(
+      (character) => !this.users.find((user) => user.character === character.name)
+    );
   }
 
   get filteredUsers() {
     const usersHigh = toJS(this.users)
-      .filter(filterUsers([100, 15]))
-      .sort((a, b) => a.score - b.score);
+      .filter(filterUsers([100, 21]))
+      .sort((b, a) => a.score - b.score);
     const usersPrehigh = toJS(this.users)
-      .filter(filterUsers([15, 10]))
-      .sort((a, b) => a.score - b.score);
+      .filter(filterUsers([20, 15]))
+      .sort((b, a) => a.score - b.score);
     const usersNormal = toJS(this.users)
-      .filter(filterUsers([10, 5]))
-      .sort((a, b) => a.score - b.score);
+      .filter(filterUsers([14, 8]))
+      .sort((b, a) => a.score - b.score);
     const usersPrenormal = toJS(this.users)
-      .filter(filterUsers([5, 3]))
-      .sort((a, b) => a.score - b.score);
+      .filter(filterUsers([7, 4]))
+      .sort((b, a) => a.score - b.score);
     const usersLow = toJS(this.users)
-      .filter(filterUsers([3, 0]))
-      .sort((a, b) => a.score - b.score);
+      .filter(filterUsers([3, -1]))
+      .sort((b, a) => a.score - b.score);
 
     return {
       usersHigh,
@@ -113,10 +121,10 @@ export default class Store {
 
   getUsers = async () => {
     try {
-      const data = await getDocs(collection(this.db, 'users'));
+      const usersSnap = await getDocs(collection(this.db, 'users'));
 
-      data.forEach((d) => {
-        this.users.push(d.data() as IUser);
+      runInAction(() => {
+        this.users = usersSnap.docs.map((document) => document.data() as IUser);
       });
     } catch (e) {
       console.warn(e);
