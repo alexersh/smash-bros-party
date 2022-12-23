@@ -7,7 +7,7 @@ import styles from './SecondStep.module.scss';
 
 const SecondStep = observer(() => {
   const {
-    store: { currentStep },
+    store: { currentStep, filteredCharacters },
   } = useStores();
 
   return (
@@ -18,7 +18,7 @@ const SecondStep = observer(() => {
       </Modal.Header>
       <Modal.Body className={styles.body}>
         <div className={styles.table}>
-          {characters.map((data) => (
+          {filteredCharacters.map((data) => (
             <CharacterCard key={data.name} character={data} />
           ))}
         </div>
