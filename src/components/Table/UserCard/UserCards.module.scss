@@ -70,6 +70,7 @@ $characters: (
   'Incineroar': 'Incineroar',
   'PiranhaPlant': 'Piranha Plant',
   'Inkling': 'Inkling',
+  'Sora': 'Sora',
 );
 
 @each $char, $img in $characters {
@@ -83,12 +84,15 @@ $characters: (
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: bold;
 
   .name {
-    width: 5rem;
+    width: 6.2rem;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -99,10 +103,11 @@ $characters: (
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
   background-repeat: no-repeat;
   background-size: cover;
   border: 1px solid rgb(255, 255, 255);
+  background-color: pink;
   border-radius: 50%;
 }

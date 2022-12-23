@@ -19,8 +19,8 @@ const FirstStep = observer(() => {
       return;
     }
 
+    // Go to character selection
     setCurrentStep('2');
-    // TODO: Send data to server and save to local storage
   };
 
   return (
@@ -32,13 +32,14 @@ const FirstStep = observer(() => {
         <Modal.Body>
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Здесь напиши кто ты</Form.Label>
+              <Form.Label>Здесь напиши кто ты (максимум 8 символов)</Form.Label>
               <Form.Control
                 required
                 type="text"
                 autoComplete="off"
                 placeholder="Ага, тут твоё погоняло"
-                minLength={5}
+                minLength={1}
+                maxLength={8}
                 value={name}
                 onChange={(e) => handleNameChange(e.target.value)}
               />
@@ -51,7 +52,7 @@ const FirstStep = observer(() => {
                 as="textarea"
                 autoComplete="off"
                 value={wish}
-                minLength={10}
+                minLength={2}
                 onChange={(e) => handleWishChange(e.target.value)}
                 rows={3}
               />

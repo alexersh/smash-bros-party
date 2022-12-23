@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { TCharacter } from '../../constants/characters';
 import styles from './CharacterCard.module.scss';
 import { useStores } from '../StoreProvider/StoreProvider';
+import uniqid from 'uniqid';
 
 interface ICharacterCardProps {
   character: TCharacter;
@@ -16,7 +17,14 @@ const CharacterCard: React.FC<ICharacterCardProps> = observer(({ character }) =>
 
   const onClick = () => {
     setAvatar(character.portrait);
-    createUser({ name, wish, character: character.name, avatar: character.portrait, score: 0 });
+    createUser({
+      name,
+      wish,
+      avatar: character.portrait,
+      character: character.name,
+      score: 0,
+      id: uniqid(),
+    });
     setCurrentStep(null);
   };
 
@@ -33,7 +41,7 @@ const CharacterCard: React.FC<ICharacterCardProps> = observer(({ character }) =>
       <Card.Body className={styles.body}>
         <Card.Text as="h4">{character.name}</Card.Text>
         <Button variant="primary" onClick={onClick}>
-          Очевидно мой выбор
+          Очевидно мой выбор!
         </Button>
       </Card.Body>
     </Card>

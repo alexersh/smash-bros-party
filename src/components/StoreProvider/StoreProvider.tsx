@@ -11,7 +11,6 @@ import {
   doc,
   increment,
 } from 'firebase/firestore';
-import uniqid from 'uniqid';
 import { filterUsers } from '../../utilities/filterUsersByRange';
 import { TCharacter, characters } from '../../constants/characters';
 
@@ -33,34 +32,44 @@ const db = getFirestore(app);
 export interface IUser {
   name: string;
   wish: string;
-  avatar: string;
   score: number;
+  avatar: string;
   character: TCharacter['name'];
+  id: string;
 }
 export default class Store {
   name: string = '';
   wish: string = '';
+  character: string;
   currentStep: TCurrentStep = null;
   avatar: string = '';
   db: Firestore = db;
   users: IUser[] = [];
   allCharacters: TCharacter[] = characters;
+  isAdminLogged: boolean = false;
 
   constructor() {
     makeAutoObservable(this, {
+      setIsAdminLogged: action,
       setCurrentStep: action,
       handleNameChange: action,
       handleWishChange: action,
       setAvatar: action,
       getUsers: action,
       createUser: action,
-      increaseScore: action,
+      changeScore: action,
       init: action,
+      setUsersChange: action,
     });
-    this.name = (typeof window !== 'undefined' && window.localStorage.getItem('character')) || '';
+    this.character =
+      (typeof window !== 'undefined' && window.localStorage.getItem('character')) || '';
 
     this.init();
   }
+
+  setIsAdminLogged = (value: boolean) => {
+    this.isAdminLogged = value;
+  };
 
   setCurrentStep = (value: TCurrentStep) => {
     this.currentStep = value;
@@ -78,9 +87,12 @@ export default class Store {
     this.avatar = value;
   };
 
+  setUsersChange = (users: IUser[]) => {
+    this.users = users;
+  };
+
   get isLoggedIn() {
-    return this.currentStep === null && this.name;
-    // return true;
+    return this.currentStep === null && this.character.length > 1;
   }
 
   get allWishes() {
@@ -91,6 +103,10 @@ export default class Store {
     return this.allCharacters.filter(
       (character) => !this.users.find((user) => user.character === character.name)
     );
+  }
+
+  get sortedUsers() {
+    return toJS(this.users).sort((a, b) => b.score - a.score);
   }
 
   get filteredUsers() {
@@ -133,29 +149,28 @@ export default class Store {
 
   createUser = async (user: IUser) => {
     try {
-      await setDoc(doc(this.db, 'users', uniqid()), user);
+      await setDoc(doc(this.db, 'users', user.id), user);
       console.log('>>> New user sended!');
+      typeof window !== 'undefined' && window.localStorage.setItem('character', user.character);
     } catch (e) {
       console.warn(e);
     }
-    runInAction(() => {
-      this.users.push(user);
-      // typeof window !== 'undefined' && window.localStorage.setItem('character', user.character);
-    });
   };
 
-  increaseScore = async (userId: IUser['character']) => {
+  changeScore = async (value: number, userId: IUser['id']) => {
     try {
       await updateDoc(doc(this.db, 'users', userId), {
-        score: increment(1),
+        score: increment(value),
       });
     } catch (e) {
       console.warn(e);
     }
-    const user = this.users.find((user) => user.character === userId);
-    if (user) {
-      user.score += 1;
-    }
+    runInAction(() => {
+      const user = this.users.find((user) => user.id === userId);
+      if (user) {
+        user.score += value;
+      }
+    });
   };
 
   init = async () => {

@@ -10,12 +10,6 @@ const SecondStep = observer(() => {
     store: { currentStep, filteredCharacters },
   } = useStores();
 
-  console.log(
-    characters.map((character) => {
-      return { name: character.name.split(' ').join(''), n: character.name };
-    })
-  );
-
   return (
     <Modal show={currentStep === '2'}>
       <Modal.Header>

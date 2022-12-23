@@ -359,4 +359,9 @@ export const characters: TCharacter[] = [
       'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484436/smash-characters/fighters/main_75_hzearx.webp',
     name: 'Inkling',
   },
+  {
+    portrait:
+      'https://res.cloudinary.com/dh5x4qa8k/image/upload/v1671484417/smash-characters/fighters/main_10_emihbx.webp',
+    name: 'Sora',
+  },
 ];

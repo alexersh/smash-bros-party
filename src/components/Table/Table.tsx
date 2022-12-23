@@ -29,7 +29,7 @@ const Table = observer(() => {
         </div>
       </div>
       <div className={styles.row}>
-        <div className={`${styles.tier} ${styles.normal}`}>D</div>
+        <div className={`${styles.tier} ${styles.normal}`}>B</div>
         <div className={styles.users}>
           {usersNormal.map((user) => {
             return <UserCard key={user.character} user={user} />;
