@@ -106,7 +106,7 @@ export default class Store {
 
   get filteredUsers() {
     const usersHigh = toJS(this.users)
-      .filter(filterUsers([100, 21]))
+      .filter(filterUsers([100, 36]))
       .sort((b, a) => a.score - b.score);
     const usersPrehigh = toJS(this.users)
       .filter(filterUsers([20, 15]))
