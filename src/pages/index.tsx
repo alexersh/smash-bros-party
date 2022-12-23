@@ -13,24 +13,25 @@ const myFont = localFont({ src: '../../public/Oswald-VariableFont_wght.ttf' });
 
 const Home = observer(() => {
   const {
-    store: { isLoggedIn, allWishes, db, setUsersChange },
+    store: { allWishes, isLoggedIn, db, setUsersChange },
   } = useStores();
   const [isLogged, setIsLoggedIn] = useState(false);
 
   useLayoutEffect(() => {
-    const collectionRef = collection(db, 'users');
+    if (isLoggedIn) {
+      const collectionRef = collection(db, 'users');
 
-    const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
-      console.log('>>> new data recieved');
+      const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
+        console.log('>>> new data recieved');
 
-      setUsersChange(snapshot.docs.map((doc) => doc.data() as IUser));
-    });
+        setUsersChange(snapshot.docs.map((doc) => doc.data() as IUser));
+      });
+      setIsLoggedIn(isLoggedIn);
 
-    setIsLoggedIn(isLoggedIn);
-
-    return () => unsubscribe();
+      return () => unsubscribe();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <div className={`${styles.container} ${myFont.className}`}>

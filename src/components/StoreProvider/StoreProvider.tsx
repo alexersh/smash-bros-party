@@ -40,13 +40,13 @@ export interface IUser {
 export default class Store {
   name: string = '';
   wish: string = '';
-  character: string;
   currentStep: TCurrentStep = null;
   avatar: string = '';
   db: Firestore = db;
   users: IUser[] = [];
   allCharacters: TCharacter[] = characters;
   isAdminLogged: boolean = false;
+  isLoggedIn: boolean = false;
 
   constructor() {
     makeAutoObservable(this, {
@@ -58,11 +58,10 @@ export default class Store {
       getUsers: action,
       createUser: action,
       changeScore: action,
-      init: action,
       setUsersChange: action,
     });
-    this.character =
-      (typeof window !== 'undefined' && window.localStorage.getItem('character')) || '';
+    this.isLoggedIn =
+      !!(typeof window !== 'undefined' && window.localStorage.getItem('character')) || false;
 
     this.init();
   }
@@ -91,10 +90,6 @@ export default class Store {
     this.users = users;
   };
 
-  get isLoggedIn() {
-    return this.currentStep === null && this.character.length > 1;
-  }
-
   get allWishes() {
     return this.users.map((user) => `${user.name}: ${user.wish}`);
   }
@@ -106,7 +101,7 @@ export default class Store {
   }
 
   get sortedUsers() {
-    return toJS(this.users).sort((a, b) => b.score - a.score);
+    return toJS(this.users);
   }
 
   get filteredUsers() {
@@ -151,7 +146,9 @@ export default class Store {
     try {
       await setDoc(doc(this.db, 'users', user.id), user);
       console.log('>>> New user sended!');
-      typeof window !== 'undefined' && window.localStorage.setItem('character', user.character);
+      runInAction(() => {
+        this.isLoggedIn = true;
+      });
     } catch (e) {
       console.warn(e);
     }
@@ -165,12 +162,6 @@ export default class Store {
     } catch (e) {
       console.warn(e);
     }
-    runInAction(() => {
-      const user = this.users.find((user) => user.id === userId);
-      if (user) {
-        user.score += value;
-      }
-    });
   };
 
   init = async () => {

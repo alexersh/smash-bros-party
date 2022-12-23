@@ -26,6 +26,7 @@ const CharacterCard: React.FC<ICharacterCardProps> = observer(({ character }) =>
       id: uniqid(),
     });
     setCurrentStep(null);
+    typeof window !== 'undefined' && window.localStorage.setItem('character', character.name);
   };
 
   return (

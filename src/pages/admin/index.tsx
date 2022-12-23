@@ -1,14 +1,30 @@
+import { collection } from '@firebase/firestore';
+import { onSnapshot } from 'firebase/firestore';
 import { observer } from 'mobx-react';
 import Image from 'next/image';
+import { useLayoutEffect } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import AdminLogin from '../../components/AdminLogin/AdminLogin';
-import { useStores } from '../../components/StoreProvider/StoreProvider';
+import { IUser, useStores } from '../../components/StoreProvider/StoreProvider';
 import styles from './AdminPage.module.scss';
 
 const AdminPage: React.FC = observer(() => {
   const {
-    store: { sortedUsers, isAdminLogged, changeScore },
+    store: { setUsersChange, db, sortedUsers, isAdminLogged, changeScore },
   } = useStores();
+
+  useLayoutEffect(() => {
+    const collectionRef = collection(db, 'users');
+
+    const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
+      console.log('>>> new data recieved');
+
+      setUsersChange(snapshot.docs.map((doc) => doc.data() as IUser));
+    });
+
+    return () => unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.container}>
