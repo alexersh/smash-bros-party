@@ -11,7 +11,7 @@ const UserCard: React.FC<IUserCard> = ({ user }) => {
   const [show, setShow] = useState(false);
 
   useLayoutEffect(() => {
-    if (user.score === 21) {
+    if (user.score === 36) {
       setShow(true);
 
       setTimeout(() => setShow(false), 10000);
