@@ -41,7 +41,7 @@ const CharacterCard: React.FC<ICharacterCardProps> = observer(({ character }) =>
       />
       <Card.Body className={styles.body}>
         <Card.Text as="h4">{character.name}</Card.Text>
-        <Button className={styles.btn} variant="primary" onClick={onClick}>
+        <Button variant="primary" onClick={onClick}>
           Очевидно мой выбор!
         </Button>
       </Card.Body>
